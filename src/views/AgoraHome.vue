@@ -106,12 +106,6 @@ export default {
     },
   },
 
-  mounted() {
-    this.$nextTick(() => {
-      window.addEventListener("keypress", (e) => {
-        e.keyCode === 13 && this.handleJoin();
-      });
-    });
-  },
+  mounted() {},
 };
 </script>

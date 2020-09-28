@@ -27,22 +27,6 @@
         <i class="ag-icon ag-icon-mic"></i>
         <i class="ag-icon ag-icon-mic-off"></i>
       </span>
-      <span
-        @click="switchDisplay"
-        class="ag-btn displayModeBtn"
-        :class="{ disabled: streamList.length > 4 }"
-        title="Switch Display Mode"
-      >
-        <i class="ag-icon ag-icon-switch-display"></i>
-      </span>
-      <span
-        class="ag-btn disableRemoteBtn"
-        :class="{ disabled: streamList.length > 4 || displayMode !== 'pip' }"
-        @click="hideRemote"
-        title="Hide Remote Stream"
-      >
-        <i class="ag-icon ag-icon-remove-pip"></i>
-      </span>
     </div>
   </div>
 </template>
@@ -243,44 +227,6 @@ export default {
         : this.localStream.enableAudio();
     },
 
-    // Switch Display
-    switchDisplay(e) {
-      if (
-        e.currentTarget.classList.contains("disabled") ||
-        this.streamList.length <= 1
-      ) {
-        return;
-      }
-      if (this.displayMode === "pip") {
-        this.displayMode = "tile";
-      } else if (this.displayMode === "tile") {
-        this.displayMode = "pip";
-      } else {
-        console.error("Display Mode can only be tile/pip");
-      }
-    },
-
-    // Hide remote stream
-    hideRemote(e) {
-      if (
-        e.currentTarget.classList.contains("disabled") ||
-        this.streamList.length <= 1
-      ) {
-        return;
-      }
-      let id = this.streamList[this.streamList.length - 1].getId();
-      let list = Array.from(
-        document.querySelectorAll(`.ag-item:not(#ag-item-${id})`)
-      );
-      list.map((item) => {
-        if (item.style.display != "none") {
-          item.style.display = "none";
-        } else {
-          item.style.display = "block";
-        }
-      });
-    },
-
     // Handle exit
     handleExit(e) {
       if (e.currentTarget.classList.contains("disabled")) {
@@ -438,9 +384,11 @@ export default {
   grid-template-rows: repeat(12, auto);
   grid-template-columns: repeat(24, auto);
 }
+
 .ag-item :first-child {
   border-radius: 6px;
 }
+
 .ag-item {
   border-radius: 6px;
   border: 2px #00b6ed solid;
@@ -448,6 +396,7 @@ export default {
   height: 100%;
   width: 100%;
 }
+
 #ag-resize-container {
   background-image: none !important;
   background-color: black;
@@ -455,9 +404,11 @@ export default {
   justify-content: center;
   height: center;
 }
+
 #ag-resize-container .ag-item {
   border: none !important;
 }
+
 /* button group */
 .ag-btn-group {
   height: 70px;
@@ -471,10 +422,12 @@ export default {
   justify-content: space-around;
   align-items: center;
 }
+
 .ag-btn-group:hover,
 .ag-btn-group.active {
   background: rgba(18, 74, 99, 0.8);
 }
+
 .ag-btn {
   z-index: 12;
   opacity: 0;
@@ -487,42 +440,54 @@ export default {
   justify-content: center;
   align-items: center;
 }
+
 .ag-btn:hover {
   color: #00b6ed;
 }
+
 .ag-btn.disabled,
 .ag-btn.disabled:hover {
   color: #637c8e;
   cursor: not-allowed;
 }
+
 .ag-btn-group:hover .ag-btn,
 .ag-btn-group.active .ag-btn {
   opacity: 1;
 }
+
 .ag-btn.off.videoControlBtn .ag-icon-camera {
   display: none;
 }
+
 .ag-btn.videoControlBtn .ag-icon-camera-off {
   display: none;
 }
+
 .ag-btn.videoControlBtn .ag-icon-camera {
   display: inline-block;
 }
+
 .ag-btn.off.videoControlBtn .ag-icon-camera-off {
   display: inline-block;
 }
+
 .ag-btn.off.audioControlBtn .ag-icon-mic {
   display: none;
 }
+
 .ag-btn.audioControlBtn .ag-icon-mic-off {
   display: none;
 }
+
 .ag-btn.audioControlBtn .ag-icon-mic {
   display: inline-block;
 }
+
 .ag-btn.off.audioControlBtn .ag-icon-mic-off {
   display: inline-block;
 }
+
 video {
   max-width: unset !important;
 }
