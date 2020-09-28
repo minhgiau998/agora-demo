@@ -1,37 +1,72 @@
 <template>
   <div class="wrapper meeting">
-    <div class="ag-header">
-      <div class="ag-header-lead">
-        <img
-          class="header-logo"
-          :src="require('../assets/images/ag-logo.png')"
-          alt=""
-        />
-        <span>AgoraWeb v2.1</span>
+    <b-navbar>
+      <template slot="brand">
+        <b-navbar-item tag="router-link" :to="{ path: '/' }">
+          <img
+            src="https://raw.githubusercontent.com/buefy/buefy/dev/static/img/buefy-logo.png"
+            alt="Lightweight UI components for Vue.js based on Bulma"
+          />
+        </b-navbar-item>
+      </template>
+      <template slot="start">
+        <b-navbar-item href="#">
+          Home
+        </b-navbar-item>
+        <b-navbar-item href="#">
+          Documentation
+        </b-navbar-item>
+        <b-navbar-dropdown label="Info">
+          <b-navbar-item href="#">
+            About
+          </b-navbar-item>
+          <b-navbar-item href="#">
+            Contact
+          </b-navbar-item>
+        </b-navbar-dropdown>
+      </template>
+
+      <template slot="end">
+        <b-navbar-item tag="div">
+          <div class="buttons">
+            <a class="button is-primary">
+              <strong>Sign up</strong>
+            </a>
+            <a class="button is-light">
+              Log in
+            </a>
+          </div>
+        </b-navbar-item>
+      </template>
+    </b-navbar>
+    <section class="hero is-info is-fullheight-with-navbar">
+      <div class="hero-body">
+        <div class="container">
+          <AgoraMeetingVideoCall
+            :channel="channel"
+            :mode="mode"
+            :transcode="transcode"
+            :videoProfile="videoProfile"
+            :attendeeMode="attendeeMode"
+            :uid="uid"
+          />
+        </div>
       </div>
-      <div class="ag-header-msg">
-        Room:&nbsp;
-        <span id="room-name">{{ channel }}</span>
+    </section>
+    <footer class="footer">
+      <div class="content has-text-centered">
+        <p>
+          <strong>Bulma</strong> by
+          <a href="https://jgthms.com">Jeremy Thomas</a>. The source code is
+          licensed
+          <a href="http://opensource.org/licenses/mit-license.php">MIT</a>. The
+          website content is licensed
+          <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/"
+            >CC BY NC SA 4.0</a
+          >.
+        </p>
       </div>
-    </div>
-    <div class="ag-main">
-      <div class="ag-container">
-        <AgoraMeetingVideoCall
-          :channel="channel"
-          :mode="mode"
-          :transcode="transcode"
-          :videoProfile="videoProfile"
-          :attendeeMode="attendeeMode"
-          :uid="uid"
-        />
-      </div>
-    </div>
-    <div class="ag-footer">
-      <a class="ag-href" href="https://www.agora.io">
-        <span>Powered By Agora</span>
-      </a>
-      <span>Talk to Support: 400 632 6626</span>
-    </div>
+    </footer>
   </div>
 </template>
 
@@ -56,42 +91,4 @@ export default {
 };
 </script>
 
-<style scoped>
-.meeting.wrapper {
-  background: rgb(12, 43, 64);
-  height: 100%;
-}
-.meeting .ag-header {
-  padding: 20px 30px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.ag-header-lead {
-  font-size: 16px;
-  line-height: 35px;
-}
-.meeting .ag-footer {
-  padding: 0 30px;
-  display: flex;
-  align-items: center;
-}
-.meeting .ag-main {
-  position: relative;
-}
-.meeting .ag-footer :first-child {
-  margin-right: 80px;
-}
-.header-logo {
-  width: 60px;
-  height: 35px;
-  margin-right: 12px;
-}
-.ag-container {
-  width: calc(100% - 60px);
-  height: 100%;
-  margin: 0 auto;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 12px;
-}
-</style>
+<style scoped></style>
