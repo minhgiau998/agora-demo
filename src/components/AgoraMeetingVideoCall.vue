@@ -461,7 +461,7 @@ export default {
 /* button group */
 .ag-btn-group {
   height: 70px;
-  width: calc(100% - 60px);
+  width: 100%;
   margin: 0 auto;
   position: absolute;
   bottom: 0;
